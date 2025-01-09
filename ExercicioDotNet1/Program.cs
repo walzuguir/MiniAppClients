@@ -9,6 +9,8 @@ class Program // Classe principal do programa que gerenci interação do usuári
 
     static void Main(string[] args) // Método principal da class Program
     {
+        _clienteRepositorio.LerDadosCliente(); // Lê os dados dos clientes antes de exibir o menu principal
+
         while (true) // Mantem a aplicação em execução contínua...
         {
             Menu(); //Exibe o menu principal apartir do método Menu()
@@ -69,6 +71,7 @@ class Program // Classe principal do programa que gerenci interação do usuári
                 }
             case 5:
                 {
+                    _clienteRepositorio.GravarDadosCliente();
                     Environment.Exit(0);
                     break;
                 }

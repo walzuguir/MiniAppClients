@@ -1,4 +1,5 @@
-﻿using Cadastro; // Importa o namespace Cadastro para a classe ClienteRepositorio
+﻿using Cadastro;
+using System.Text.Json; // Importa o namespace Cadastro para a classe ClienteRepositorio
 
 namespace ClienteRepo;
 
@@ -6,6 +7,26 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
 {
 
     public List<Cliente> clientes = new List<Cliente>(); // Instanciando uma nova lista de clientes
+
+    public void GravarDadosCliente()
+    {
+
+        var json = JsonSerializer.Serialize(clientes); // Serializa a lista de clientes em formato JSON
+
+        File.WriteAllText("clientes.txt", json); // Escreve o arquivo JSON no arquivo clientes.txt
+    }
+
+    public void LerDadosCliente()
+    {
+        if (File.Exists("clients.txt")) // Verifica se o arquivo existe
+        {
+            var dados = File.ReadAllText("clientes.txt"); // Lê o arquivo clientes.txt
+
+            var clientesArquivo = System.Text.Json.JsonSerializer.Deserialize<List<Cliente>>(dados);
+
+            clientes.AddRange(clientesArquivo); // Adiciona os clientes do arquivo na lista de clientes se o arquivo não estiver vazio.
+        }
+    }
 
     public void ExcluirCliente() // Método para exluir um cliente da DB
     {
@@ -73,25 +94,62 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
     }
 
     
-    public void CadastrarCliente() // Método para efetivar o cadastro das informações do cliente...
+    public void CadastrarCliente() // Método para realizar o cadastro das informações do cliente...
     {
         Console.Clear();
 
-        Console.Write("Nome do cliente: ");
+        string nome = string.Empty; // Inicializando as variáveis com valores padrão
+        DateOnly dataDeNascimento = default;
+        decimal desconto = 0;
+
+        try
+        {
+            Console.Write("Nome do cliente: ");
+            nome = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(nome) || !nome.Replace(" ", "").All(char.IsLetter))
+            {
+                Console.WriteLine(" ");
+                throw new Exception("Nome do cliente é obrigatório e deve conter apenas letras!"); // Método throw para lançar a exceção e não permitir entrada de outros valores além de letras para nome do cliente.
+            }
+            Console.Write(Environment.NewLine);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao inserir nome: {ex.Message} [Enter]");
+            Console.ReadKey();
+            return;
+        }
+
+        try
+        {
         
-        var nome = Console.ReadLine();
-        Console.Write(Environment.NewLine);
-
         Console.Write("Data de nascimento: ");
-        var dataDeNascimento = DateOnly.Parse(Console.ReadLine());
+        dataDeNascimento = DateOnly.Parse(Console.ReadLine());
         Console.Write(Environment.NewLine);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao inserir data de nascimento: {ex.Message} [Enter]");
+            Console.ReadKey();
+            return;
+        }
 
+        try
+        {
         Console.Write("Desconto: ");
-        var desconto = decimal.Parse(Console.ReadLine());
+        desconto = decimal.Parse(Console.ReadLine());
         Console.Write(Environment.NewLine);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Erro ao inserir data de nascimento: {ex.Message} [Enter]");
+            Console.ReadKey();
+            return;
+        }
+
 
         var cliente = new Cliente(); // Instancia um novo cliente
-        cliente.Id = clientes.Count + 1; // Atribui um novo ID ao cliente que é relativo ao tamanho da lista +1
+        cliente.Id = clientes.Count + 1; // Atribui um novo ID ao cliente ao tamanho da list +1
         cliente.Nome = nome;
         cliente.DataNascimento = dataDeNascimento;
         cliente.Desconto = desconto;
