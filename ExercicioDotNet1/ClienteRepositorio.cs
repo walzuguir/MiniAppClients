@@ -8,7 +8,7 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
 
     public List<Cliente> clientes = new List<Cliente>(); // Instanciando uma nova lista de clientes
 
-    public void GravarDadosCliente()
+    public void GravarDadosCliente() // Gravar dados cliente em arquivo JSON
     {
 
         var json = JsonSerializer.Serialize(clientes); // Serializa a lista de clientes em formato JSON
@@ -16,7 +16,7 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
         File.WriteAllText("clients.txt", json); // Escreve o arquivo JSON no arquivo clientes.txt
     }
 
-    public void LerDadosCliente()
+    public void LerDadosCliente() // Método para ler os dados dos clientes
     {
         if (File.Exists("clients.txt")) // Verifica se o arquivo existe
         {
@@ -34,11 +34,11 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
         Console.Write("Informe o código do cliente a ser excluido: ");
         var codigo = Console.ReadLine();
 
-        var cliente = clientes.FirstOrDefault(p => p.Id == int.Parse(codigo)); // Atráves do método FirstOrDefault que retorna o primeiro elemento da sequência que satisfaça uma condição específica ou um valor padrão se nenhum elemento for encontrado.
+        var cliente = clientes.FirstOrDefault(p => p.Id == int.Parse(codigo)); // Atráves da função FirstOrDefault, busca o cliente na lista de clientes por meio do ID informado pelo usuário final.
 
-        if (cliente == null)
+        if (cliente == null) // Verifica se o cliente existe na lista de clientes
         {
-            Console.WriteLine("Cliente não encontrado na DB! [Enter]");
+            Console.WriteLine("Cliente não encontrado na DB! [Enter pra voltar ao menu principal]");
             Console.ReadKey();
             return;
         }
@@ -47,7 +47,7 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
 
         clientes.Remove(cliente); // Remove o cliente da lista de clientes
 
-        Console.WriteLine("Cliente removido com sucesso! [Enter]"); // Mensagem para informar que o cliente foi removido
+        Console.WriteLine("Cliente removido com sucesso! [Enter pra voltar ao menu principal]"); // Mensagem para informar que o cliente foi removido
 
         Console.ReadKey();
     }
@@ -62,7 +62,7 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
 
         if (cliente == null) 
         {
-            Console.WriteLine("Cliente não encontrado na DB! [Enter]");
+            Console.WriteLine("Cliente não encontrado na DB! [Enter pra voltar ao menu principal]");
             Console.ReadKey();
             return;
 
@@ -87,7 +87,7 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
         cliente.Desconto = desconto;
         cliente.CadastradoEm = DateTime.Now;
 
-        Console.WriteLine("Cliente cadastrado com sucesso! [Enter]");
+        Console.WriteLine("Cliente editado com sucesso! [Enter pra voltar ao menu principal]");
         ImprimirCliente(cliente);
         Console.ReadKey();
     
@@ -115,7 +115,7 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Erro ao inserir nome: {ex.Message} [Enter]");
+            Console.WriteLine($"Erro ao inserir nome: {ex.Message} [Enter pra voltar ao menu principal]");
             Console.ReadKey();
             return;
         }
@@ -129,7 +129,7 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Erro ao inserir data de nascimento: {ex.Message} [Enter]");
+            Console.WriteLine($"Erro ao inserir data de nascimento: {ex.Message} [Enter pra voltar ao menu principal]");
             Console.ReadKey();
             return;
         }
@@ -142,7 +142,7 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Erro ao inserir data de nascimento: {ex.Message} [Enter]");
+            Console.WriteLine($"Erro ao inserir data de nascimento: {ex.Message} [Enter pra voltar ao menu principal]");
             Console.ReadKey();
             return;
         }
@@ -157,7 +157,7 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
 
         clientes.Add(cliente); // Adiciona o novo cliente a lista de clientes
 
-        Console.WriteLine("Cliente cadastrado com sucesso! [Enter]");
+        Console.WriteLine("Cliente cadastrado com sucesso! [Enter pra voltar ao menu principal]");
         ImprimirCliente(cliente); // Método que imprime os dados do cliente no console
         Console.ReadKey(); // Volta ao menu principal
 
