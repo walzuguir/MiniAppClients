@@ -13,14 +13,14 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
 
         var json = JsonSerializer.Serialize(clientes); // Serializa a lista de clientes em formato JSON
 
-        File.WriteAllText("clientes.txt", json); // Escreve o arquivo JSON no arquivo clientes.txt
+        File.WriteAllText("clients.txt", json); // Escreve o arquivo JSON no arquivo clientes.txt
     }
 
     public void LerDadosCliente()
     {
         if (File.Exists("clients.txt")) // Verifica se o arquivo existe
         {
-            var dados = File.ReadAllText("clientes.txt"); // Lê o arquivo clientes.txt
+            var dados = File.ReadAllText("clients.txt"); // Lê o arquivo clientes.txt
 
             var clientesArquivo = System.Text.Json.JsonSerializer.Deserialize<List<Cliente>>(dados);
 
