@@ -13,14 +13,14 @@ public class ClienteRepositorio
 
         var json = JsonSerializer.Serialize(clientes);
 
-        File.WriteAllText("clients.txt", json);
+        File.WriteAllText("clientes.txt", json);
     }
 
     public void LerDadosCliente() 
     {
-        if (File.Exists("clients.txt"))
+        if (File.Exists("clientes.txt"))
         {
-            var dados = File.ReadAllText("clients.txt");
+            var dados = File.ReadAllText("clientes.txt");
 
             var clientesArquivo = System.Text.Json.JsonSerializer.Deserialize<List<Cliente>>(dados);
 
@@ -87,7 +87,8 @@ public class ClienteRepositorio
         cliente.Desconto = desconto;
         cliente.CadastradoEm = DateTime.Now;
 
-        Console.WriteLine("Cliente editado com sucesso! [Enter pra voltar ao menu principal]");
+        Console.WriteLine("Cliente editado com sucesso!");
+        Console.WriteLine("[Enter pra voltar ao menu principal]");
         ImprimirCliente(cliente);
         Console.ReadKey();
     
@@ -167,7 +168,7 @@ public class ClienteRepositorio
     {
         Console.WriteLine("ID.........: " + cliente.Id);
         Console.WriteLine("Nome.........: " + cliente.Nome);
-        Console.WriteLine("Desconto.........: " + cliente.Desconto.ToString("0.00"));
+        Console.WriteLine("Desconto.........: " + cliente.Desconto.ToString("0.00") + " R$");
         Console.WriteLine("Data de nascimento.........: " + cliente.DataNascimento);
         Console.WriteLine("Data cadastro..........: " + cliente.CadastradoEm); 
         Console.WriteLine("----------------------------------------------");
