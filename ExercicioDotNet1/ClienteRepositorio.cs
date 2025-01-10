@@ -1,4 +1,5 @@
 ﻿using Cadastro;
+using System.Diagnostics.Metrics;
 using System.Text.Json; 
 
 namespace ClienteRepo;
@@ -38,7 +39,8 @@ public class ClienteRepositorio
 
         if (cliente == null) 
         {
-            Console.WriteLine("Cliente não encontrado na DB! [Enter pra voltar ao menu principal]");
+            Console.WriteLine("Cliente não encontrado na DB!");
+            Console.WriteLine("[Enter pra voltar ao menu principal]");
             Console.ReadKey();
             return;
         }
@@ -47,8 +49,8 @@ public class ClienteRepositorio
 
         clientes.Remove(cliente); 
 
-        Console.WriteLine("Cliente removido com sucesso! [Enter pra voltar ao menu principal]"); 
-
+        Console.WriteLine("Cliente removido com sucesso!");
+        Console.WriteLine("[Enter pra voltar ao menu principal]");
         Console.ReadKey();
     }
 
@@ -62,7 +64,8 @@ public class ClienteRepositorio
 
         if (cliente == null) 
         {
-            Console.WriteLine("Cliente não encontrado na DB! [Enter pra voltar ao menu principal]");
+            Console.WriteLine("Cliente não encontrado na DB!");
+            Console.WriteLine("[Enter pra voltar ao menu principal]");
             Console.ReadKey();
             return;
 
@@ -116,7 +119,8 @@ public class ClienteRepositorio
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Erro ao inserir nome: {ex.Message} [Enter pra voltar ao menu principal]");
+            Console.WriteLine($"Erro ao inserir nome: {ex.Message}");
+            Console.WriteLine("[Enter pra voltar ao menu principal]");
             Console.ReadKey();
             return;
         }
@@ -130,7 +134,8 @@ public class ClienteRepositorio
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Erro ao inserir data de nascimento: {ex.Message} [Enter pra voltar ao menu principal]");
+            Console.WriteLine($"Erro ao inserir data de nascimento: {ex.Message}");
+            Console.WriteLine("[Enter pra voltar ao menu principal]");
             Console.ReadKey();
             return;
         }
@@ -143,7 +148,8 @@ public class ClienteRepositorio
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Erro ao inserir data de nascimento: {ex.Message} [Enter pra voltar ao menu principal]");
+            Console.WriteLine($"Erro ao inserir data de nascimento: {ex.Message}");
+            Console.WriteLine("[Enter pra voltar ao menu principal]");
             Console.ReadKey();
             return;
         }
@@ -158,7 +164,8 @@ public class ClienteRepositorio
 
         clientes.Add(cliente);
 
-        Console.WriteLine("Cliente cadastrado com sucesso! [Enter pra voltar ao menu principal]");
+        Console.WriteLine("Cliente cadastrado com sucesso!");
+        Console.WriteLine("[Enter pra voltar ao menu principal]");
         ImprimirCliente(cliente);
         Console.ReadKey();
 
@@ -170,7 +177,7 @@ public class ClienteRepositorio
         Console.WriteLine("Nome.........: " + cliente.Nome);
         Console.WriteLine("Desconto.........: " + cliente.Desconto.ToString("0.00") + " R$");
         Console.WriteLine("Data de nascimento.........: " + cliente.DataNascimento);
-        Console.WriteLine("Data cadastro..........: " + cliente.CadastradoEm); 
+        Console.WriteLine("Data cadastro.........: " + cliente.CadastradoEm); 
         Console.WriteLine("----------------------------------------------");
     }
 
