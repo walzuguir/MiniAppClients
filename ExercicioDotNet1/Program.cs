@@ -1,25 +1,25 @@
-﻿using ClienteRepo; // Importa o namespace ClienteRepo para a classe Program para instanciar a classe ClienteRepositorio
+﻿using ClienteRepo; 
 
-namespace AppClientes; // Namespace da aplicação
+namespace AppClientes; 
 
-class Program // Classe principal do programa que gerenci interação do usuário com o sistema de cadastro
+class Program
 {
 
-    static ClienteRepositorio _clienteRepositorio = new ClienteRepositorio(); // Instanciando a classe ClienteRepositorio
+    static ClienteRepositorio _clienteRepositorio = new ClienteRepositorio(); 
 
-    static void Main(string[] args) // Método principal da class Program
+    static void Main(string[] args) 
     {
-        _clienteRepositorio.LerDadosCliente(); // Lê os dados dos clientes antes de exibir o menu principal
+        _clienteRepositorio.LerDadosCliente();
 
-        while (true) // Mantem a aplicação em execução contínua...
+        while (true)
         {
-            Menu(); //Exibe o menu principal apartir do método Menu()
+            Menu();
 
             Console.ReadKey();
         }
     }
 
-    static void Menu() // Menu principal
+    static void Menu()
     {
         Console.Clear();
 
@@ -32,18 +32,18 @@ class Program // Classe principal do programa que gerenci interação do usuári
         Console.WriteLine("5 - Sair");
         Console.WriteLine("--------------------");
 
-        EscolherOpcao(); // Chama o método EscolherOpcao para o usuário escolher uma opção através do menu principal.
+        EscolherOpcao();
     }
 
-    static void EscolherOpcao() // Método para ler o input do usuário e chamar o método correspondente
+    static void EscolherOpcao()
     {
         Console.WriteLine("Escolha uma opção válida: ");
         try
         {
         
-        var opcao = Console.ReadLine(); // Lê a opção escolhida pelo usuário
+        var opcao = Console.ReadLine();
 
-        switch (int.Parse(opcao)) // Estrutura de repetição SWITCH para verificar a opção escolhida pelo usuário
+        switch (int.Parse(opcao))
         {
             case 1:
                 {

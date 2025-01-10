@@ -1,42 +1,42 @@
 ﻿using Cadastro;
-using System.Text.Json; // Importa o namespace Cadastro para a classe ClienteRepositorio
+using System.Text.Json; 
 
 namespace ClienteRepo;
 
-public class ClienteRepositorio // Classe criada para armazenar os clientes
+public class ClienteRepositorio 
 {
 
-    public List<Cliente> clientes = new List<Cliente>(); // Instanciando uma nova lista de clientes
+    public List<Cliente> clientes = new List<Cliente>();
 
-    public void GravarDadosCliente() // Gravar dados cliente em arquivo JSON
+    public void GravarDadosCliente()
     {
 
-        var json = JsonSerializer.Serialize(clientes); // Serializa a lista de clientes em formato JSON
+        var json = JsonSerializer.Serialize(clientes);
 
-        File.WriteAllText("clients.txt", json); // Escreve o arquivo JSON no arquivo clientes.txt
+        File.WriteAllText("clients.txt", json);
     }
 
-    public void LerDadosCliente() // Método para ler os dados dos clientes
+    public void LerDadosCliente() 
     {
-        if (File.Exists("clients.txt")) // Verifica se o arquivo existe
+        if (File.Exists("clients.txt"))
         {
-            var dados = File.ReadAllText("clients.txt"); // Lê o arquivo clientes.txt
+            var dados = File.ReadAllText("clients.txt");
 
             var clientesArquivo = System.Text.Json.JsonSerializer.Deserialize<List<Cliente>>(dados);
 
-            clientes.AddRange(clientesArquivo); // Adiciona os clientes do arquivo na lista de clientes se o arquivo não estiver vazio.
+            clientes.AddRange(clientesArquivo); 
         }
     }
 
-    public void ExcluirCliente() // Método para exluir um cliente da DB
+    public void ExcluirCliente() 
     {
         Console.Clear();
         Console.Write("Informe o código do cliente a ser excluido: ");
         var codigo = Console.ReadLine();
 
-        var cliente = clientes.FirstOrDefault(p => p.Id == int.Parse(codigo)); // Atráves da função FirstOrDefault, busca o cliente na lista de clientes por meio do ID informado pelo usuário final.
+        var cliente = clientes.FirstOrDefault(p => p.Id == int.Parse(codigo)); 
 
-        if (cliente == null) // Verifica se o cliente existe na lista de clientes
+        if (cliente == null) 
         {
             Console.WriteLine("Cliente não encontrado na DB! [Enter pra voltar ao menu principal]");
             Console.ReadKey();
@@ -45,20 +45,20 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
 
         ImprimirCliente(cliente);
 
-        clientes.Remove(cliente); // Remove o cliente da lista de clientes
+        clientes.Remove(cliente); 
 
-        Console.WriteLine("Cliente removido com sucesso! [Enter pra voltar ao menu principal]"); // Mensagem para informar que o cliente foi removido
+        Console.WriteLine("Cliente removido com sucesso! [Enter pra voltar ao menu principal]"); 
 
         Console.ReadKey();
     }
 
-    public void EditarCliente() // Método para editar as informações do cliente
+    public void EditarCliente() 
     {
         Console.Clear();
         Console.Write("Informe o código do cliente: ");
         var codigo = Console.ReadLine();
 
-        var cliente = clientes.FirstOrDefault(p => p.Id == int.Parse(codigo)); // Busca o cliente na lista de clientes por meio do ID informado pelo usuário final.
+        var cliente = clientes.FirstOrDefault(p => p.Id == int.Parse(codigo)); 
 
         if (cliente == null) 
         {
@@ -68,7 +68,7 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
 
         }
 
-        ImprimirCliente(cliente); // Método que imprime os dados do cliente
+        ImprimirCliente(cliente);
 
         Console.Write("Nome do usuário: ");
         var nome = Console.ReadLine();
@@ -94,11 +94,11 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
     }
 
     
-    public void CadastrarCliente() // Método para realizar o cadastro das informações do cliente...
+    public void CadastrarCliente() 
     {
         Console.Clear();
 
-        string nome = string.Empty; // Inicializando as variáveis com valores padrão
+        string nome = string.Empty;
         DateOnly dataDeNascimento = default;
         decimal desconto = 0;
 
@@ -109,7 +109,7 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
             if (string.IsNullOrWhiteSpace(nome) || !nome.Replace(" ", "").All(char.IsLetter))
             {
                 Console.WriteLine(" ");
-                throw new Exception("Nome do cliente é obrigatório e deve conter apenas letras!"); // Método throw para lançar a exceção e não permitir entrada de outros valores além de letras para nome do cliente.
+                throw new Exception("Nome do cliente é obrigatório e deve conter apenas letras!");
             }
             Console.Write(Environment.NewLine);
         }
@@ -148,37 +148,37 @@ public class ClienteRepositorio // Classe criada para armazenar os clientes
         }
 
 
-        var cliente = new Cliente(); // Instancia um novo cliente
-        cliente.Id = clientes.Count + 1; // Atribui um novo ID ao cliente ao tamanho da list +1
+        var cliente = new Cliente();
+        cliente.Id = clientes.Count + 1;
         cliente.Nome = nome;
         cliente.DataNascimento = dataDeNascimento;
         cliente.Desconto = desconto;
-        cliente.CadastradoEm = DateTime.Now; // Atribui a data de cadastro do cliente na data atual
+        cliente.CadastradoEm = DateTime.Now; 
 
-        clientes.Add(cliente); // Adiciona o novo cliente a lista de clientes
+        clientes.Add(cliente);
 
         Console.WriteLine("Cliente cadastrado com sucesso! [Enter pra voltar ao menu principal]");
-        ImprimirCliente(cliente); // Método que imprime os dados do cliente no console
-        Console.ReadKey(); // Volta ao menu principal
+        ImprimirCliente(cliente);
+        Console.ReadKey();
 
     }
 
-    public void ImprimirCliente(Cliente cliente) // Método que imprime os dados do cliente
+    public void ImprimirCliente(Cliente cliente)
     {
         Console.WriteLine("ID.........: " + cliente.Id);
         Console.WriteLine("Nome.........: " + cliente.Nome);
-        Console.WriteLine("Desconto.........: " + cliente.Desconto.ToString("0.00")); // usa o método ToString para formatar o valor em 2 casas decimais.
+        Console.WriteLine("Desconto.........: " + cliente.Desconto.ToString("0.00"));
         Console.WriteLine("Data de nascimento.........: " + cliente.DataNascimento);
-        Console.WriteLine("Data cadastro..........: " + cliente.CadastradoEm); // Imprime a data de cadastro do cliente.
+        Console.WriteLine("Data cadastro..........: " + cliente.CadastradoEm); 
         Console.WriteLine("----------------------------------------------");
     }
 
-    public void ExibirClientes() //Método para exibir a lista de clientes.
+    public void ExibirClientes()
     {
         Console.Clear();
-        foreach (var cliente in clientes) // Percorre a lista de clientes por completa
+        foreach (var cliente in clientes) 
         {
-            ImprimirCliente(cliente); //Método que imprime a lista de clientes
+            ImprimirCliente(cliente); 
         }
         Console.ReadKey();
     }
